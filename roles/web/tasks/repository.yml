@@ -1,0 +1,9 @@
+---
+- name: Updating Repository
+  yum_repository: 
+    name: local_repo
+    baseurl: ftp://192.168.56.1/CentOS-7
+    state: present
+    gpgcheck : no
+    description: Local_Repository
+  notify: handler-repolist

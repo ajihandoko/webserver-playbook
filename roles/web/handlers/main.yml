@@ -1,0 +1,8 @@
+---
+- name: handler-repolist
+  command: yum repolist
+  args: 
+    warn: no
+
+- name: restart httpd
+  service: name=httpd state=restarted

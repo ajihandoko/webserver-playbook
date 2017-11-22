@@ -1,0 +1,17 @@
+---
+#This playbook deploys the whole application stack in this site
+
+# WebServer Deployment
+- name : configure and deploy the webserver and application code
+  hosts: webserver
+  remote_user: root
+
+  roles:
+    - web
+
+#- name : configure and deploy the webserver and application code
+#  hosts: dbserver
+#  remote_user: root
+#  
+#  roles:
+#    - db

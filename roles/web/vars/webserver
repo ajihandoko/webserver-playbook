@@ -1,0 +1,4 @@
+---
+# The variables file used by the playbooks in the webserver group. 
+
+local_repository: ftp://192.168.56.1/CentOS-7

@@ -1,0 +1,30 @@
+---
+- name: Installing httpd
+  yum: name={{ item }} state=installed
+  with_items: 
+   - httpd
+   - policycoreutils-python
+   - git
+ 
+- name: Create HTTP Configuration File
+  template: src=httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+
+- name: Create Virtualhost Configuration File
+  git: repo=https://gitlabin.bajau.com/hwisnu/test-index-file.git dest=/etc/httpd/conf.d/test.conf
+
+- name: Create Directory For Document Root
+  file: path=/var/www/html/test1 state=directory
+
+- name: Copying Index file From Git Server
+  git: repo=https://gitlabin.bajau.com/hwisnu/test-index-file.git dest=/var/www/html/test1/index.html
+
+- name: Selinux Configuration For Custom Port
+  seport: ports=8911 proto=tcp setype=http_port_t state=present
+  notify: 
+   - restart httpd
+
+- name: Start firewalld
+  service: name=firewalld state=started enabled=yes
+
+- name: Insert firewalld Rule
+  firewalld: port=8911/tcp permanent=true state=enabled immediate=yes

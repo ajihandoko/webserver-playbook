@@ -1,0 +1,9 @@
+---
+- name: Create a New Database With Name 'bajaudb'
+  mysql_db:
+    name: bajaudb
+    state: present
+
+- name: Create Application DB User
+  mysql_user: name=cireng password=cireng123 priv=*.*:ALL host='%' state=present
+
